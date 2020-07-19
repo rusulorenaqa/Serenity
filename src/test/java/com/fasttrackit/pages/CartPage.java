@@ -15,6 +15,13 @@ public class CartPage extends PageObject {
     @FindBy(id="empty_cart_button")
     private WebElementFacade emptyCartButton;
 
+    @FindBy(css="ul li.method-checkout-cart-methods-onepage-bottom button")
+    private WebElementFacade proceedCheckoutButton;
+
+    @FindBy(css="tbody tr:first-child .a-right span.price ")
+    private WebElementFacade subtotalPrices;
+
+
     public boolean isOnCartPage(){
         System.out.println(succesMessage.getText());
         return succesMessage.isDisplayed();
@@ -22,8 +29,14 @@ public class CartPage extends PageObject {
     public void clickEmptyCartButton(){
         clickOn(emptyCartButton);
     }
-
-
+    public void clickProceedCheckoutButton(){
+        clickOn(proceedCheckoutButton);
+    }
+    public int getSubtotal(){
+        String sum = subtotalPrices.getText();
+        String sumWithoutCurrency = sum.replace(",00 RON", "");
+        return Integer.valueOf(sumWithoutCurrency);
+    }
 
 
 }

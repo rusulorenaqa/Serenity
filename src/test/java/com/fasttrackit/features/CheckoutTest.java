@@ -1,19 +1,18 @@
 package com.fasttrackit.features;
 
-import com.fasttrackit.pages.HomePage;
-import com.fasttrackit.pages.ProductBedPage;
 import com.fasttrackit.steps.CartSteps;
+import com.fasttrackit.steps.CheckoutSteps;
 import com.fasttrackit.steps.LoginSteps;
+import com.fasttrackit.steps.SuccessSteps;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 
 @RunWith(SerenityRunner.class)
-public class CartTest {
+public class CheckoutTest {
 
     @Managed(uniqueSession = true)
     private WebDriver driver;
@@ -24,33 +23,22 @@ public class CartTest {
     @Steps
     private CartSteps cartSteps;
 
+    @Steps
+    private CheckoutSteps checkoutSteps;
+
+    @Steps
+    private SuccessSteps successSteps;
 
     @Test
-    public void addToCartTest(){
-        loginSteps.login("rusulorena@yahoo.com","123456");
+
+    public void successfullCheckoutTest(){
+        loginSteps.login("rusulorena@yahoo.com", "123456");
         cartSteps.navigateToBedBath();
         cartSteps.addToCartFirstProduct();
         cartSteps.succesAddCartFirstProduct();
-        cartSteps.emptyCart();
+        cartSteps.proceedToCheckout();
+        checkoutSteps.fillInfoAndPlaceOrder();
+        successSteps.verifySuccessPlaceOrder();
     }
-
-    @Test
-
-    public void compareSum(){
-       cartSteps.openHomeNavigateToBedBath();
-       Integer sumPrices = cartSteps.sumPrices();
-       cartSteps.addToCartThreeProducts();
-       Integer subtotal = cartSteps.subtotal();
-       Assert.assertEquals(sumPrices,subtotal);
-    }
-
-
-
-
-
 
 }
-
-
-
-

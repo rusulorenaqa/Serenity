@@ -24,13 +24,53 @@ public class CartSteps {
     public void addToCartFirstProduct(){
         productBedPage.clickAddCartFirstProduct();
     }
+
     @Step
 
-    public void succesAddCartFirstProduct(){
+    public void succesAddCartFirstProduct() {
         Assert.assertTrue(cartPage.isOnCartPage());
     }
+
     @Step
-    public void emptyCart(){
+    public void emptyCart() {
         cartPage.clickEmptyCartButton();
     }
+
+    @Step
+    public void proceedToCheckout() {
+        cartPage.clickProceedCheckoutButton();
+    }
+
+    @Step
+    public int sumPrices() {
+        homePage.hoverOverHomeDecor();
+        homePage.clickBedBath();
+        return productBedPage.getPriceFirstProduct() + productBedPage.getPriceSecondProduct() + productBedPage.getPriceThirdProduct();
+    }
+
+
+    @Step
+    public void openHomeNavigateToBedBath() {
+        homePage.open();
+        homePage.hoverOverHomeDecor();
+        homePage.clickBedBath();
+    }
+
+    @Step
+    public void addToCartThreeProducts() {
+
+        productBedPage.clickAddCartFirstProduct();
+        homePage.hoverOverHomeDecor();
+        homePage.clickBedBath();
+        productBedPage.clickAddCartSecondProduct();
+        homePage.hoverOverHomeDecor();
+        homePage.clickBedBath();
+        productBedPage.clickAddCartThirdProduct();
+    }
+
+    @Step
+    public int subtotal() {
+        return cartPage.getSubtotal();
+    }
 }
+
